@@ -9,7 +9,7 @@ export async function GET(request, { params }) {
             where: { id: Number(id) },
         });
 
-        return NextResponse.json({ task }, { status: 200 });
+        return NextResponse.json({ task:task }, { status: 200 });
     }
     catch (error) {
         return NextResponse.json({ message: 'Error al obtener la tarea', error: error.message }, { status: 500 });

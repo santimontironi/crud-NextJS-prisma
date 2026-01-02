@@ -4,7 +4,9 @@ import { ClimbingBoxLoader } from "react-spinners";
 
 const Loader = () => {
   return (
-    <ClimbingBoxLoader color="#10B981" size={15} />
+    <div className="flex justify-center items-center">
+        <ClimbingBoxLoader color="#10B981" size={15} />
+    </div>
   )
 }
 

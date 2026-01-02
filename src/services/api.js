@@ -11,3 +11,7 @@ export const addTask = async (task) => {
 export const getTasks = async () => {
    return await apiUrl.get('/tasks');
 }
+
+export const getTaskById = async (id) => {
+    return await apiUrl.get(`/tasks/${id}`);
+}

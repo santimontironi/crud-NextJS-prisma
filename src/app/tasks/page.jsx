@@ -3,7 +3,7 @@
 import { useContext } from "react"
 import { TaskContext } from "@/context/TaskContext";
 import Loader from "../components/Loader";
-import TaskCard from "../components/TaskCard";
+import TaskItem from "../components/TaskItem";
 
 const TasksPage = () => {
 
@@ -53,7 +53,7 @@ const TasksPage = () => {
                         ) : (
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {tasks.map((task) => (
-                                    <TaskCard key={task.id} task={task} />
+                                    <TaskItem key={task.id} task={task} />
                                 ))}
                             </div>
                         )}

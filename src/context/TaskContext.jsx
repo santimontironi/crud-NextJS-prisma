@@ -1,16 +1,18 @@
 "use client"
 import { createContext, useState, useEffect } from "react"
-import { addTask, getTasks } from "@/services/api";
+import { addTask, getTasks, getTaskById } from "@/services/api";
 
 export const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
 
     const [tasks, setTasks] = useState([]);
+    const [task, setTask] = useState([]);
     const [loading, setLoading] = useState({
         add: false,
         delete: false,
         get: true,
+        getById: true,
         patch: false
     })
 
@@ -50,8 +52,24 @@ export const TaskProvider = ({ children }) => {
         allTasks()
     }, [])
 
+    async function taskById(id) {
+        try{
+            const res =  await getTaskById(id);
+            setTask(res.data.task);
+            return res.data.task;
+        }
+        catch(error){ 
+            console.error("Error al obtener la tarea por ID:", error);
+        }
+        finally{
+            setTimeout(() => {
+                setLoading((prev) => ({ ...prev, getById: false }));
+            }, 2500);
+        }
+    }
+
     return (
-        <TaskContext.Provider value={{ tasks, createTask, loading }}>
+        <TaskContext.Provider value={{ tasks, createTask, loading, taskById, task }}>
             {children}
         </TaskContext.Provider>
     )
