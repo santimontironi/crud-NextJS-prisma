@@ -9,6 +9,5 @@ export const addTask = async (task) => {
 }
 
 export const getTasks = async () => {
-    const response = await apiUrl.get('/tasks');
-    return response.data;
+   return await apiUrl.get('/tasks');
 }
