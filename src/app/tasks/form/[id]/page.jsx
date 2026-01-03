@@ -78,14 +78,6 @@ const FormPage = () => {
                   defaultValue={task?.title}
                   {...register('title', {
                     required: 'El título es obligatorio',
-                    minLength: {
-                      value: 3,
-                      message: 'El título debe tener al menos 3 caracteres',
-                    },
-                    maxLength: {
-                      value: 100,
-                      message: 'El título no puede exceder 100 caracteres',
-                    },
                   })}
                   className={`
                     w-full px-4 py-3 bg-black/40 border-2 rounded-lg

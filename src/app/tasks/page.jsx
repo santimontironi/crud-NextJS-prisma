@@ -7,10 +7,13 @@ import TaskItem from "../components/TaskItem";
 import { Toaster } from "sonner";
 import { toast } from "sonner";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const TasksPage = () => {
 
     const { tasks, loading, deleteTask } = useContext(TaskContext);
+
+    const router = useRouter();
 
     const handleDelete = (id) => {
         toast("¿Eliminar esta tarea?", {
@@ -81,6 +84,29 @@ const TasksPage = () => {
                         )}
                     </div>
                 )}
+
+                <div className="mt-10">
+                    <button 
+                        onClick={() => router.back()} 
+                        className="flex items-center cursor-pointer gap-2 text-gray-400 hover:text-green-400 transition-colors group"
+                    >
+                        <svg
+                            className="w-5 h-5 transition-transform group-hover:-translate-x-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M15 19l-7-7 7-7"
+                            />
+                        </svg>
+                        <span className="font-medium">Volver</span>
+                    </button>
+                </div>
+    
             </div>
 
             <Toaster richColors position="top-center" />
