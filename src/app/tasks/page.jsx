@@ -6,6 +6,7 @@ import Loader from "../components/Loader";
 import TaskItem from "../components/TaskItem";
 import { Toaster } from "sonner";
 import { toast } from "sonner";
+import Link from "next/link";
 
 const TasksPage = () => {
 
@@ -60,9 +61,16 @@ const TasksPage = () => {
                                     <p className="text-gray-400 text-lg mb-4">
                                         No hay tareas disponibles
                                     </p>
+
                                     <p className="text-gray-500 text-sm">
                                         Crea una nueva tarea para comenzar
                                     </p>
+
+                                    <Link href='/new'>
+                                        <button className="mt-6 px-6 py-3 bg-linear-to-r from-green-700 to-green-600 text-white font-semibold rounded-lg shadow-lg shadow-green-900/50 hover:shadow-xl hover:shadow-green-800/60 transition-all duration-200 cursor-pointer">
+                                            Crear tarea
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
                         ) : (
