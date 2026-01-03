@@ -19,3 +19,7 @@ export const getTaskById = async (id) => {
 export const deleteTaskById = async (id) => {
     return await apiUrl.delete(`/tasks/${id}`);
 }
+
+export const updateTaskById = async (id, updatedTask) => {
+    return await apiUrl.patch(`/tasks/${id}`, updatedTask);
+}

@@ -24,7 +24,6 @@ const TasksPage = () => {
         });
     };
 
-
     return (
         <section className="min-h-screen bg-linear-to-br from-black via-stone-900 to-black py-12 px-6">
             <div className="max-w-6xl mx-auto">

@@ -31,12 +31,12 @@ const Home = () => {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
             <Link href="/tasks">
-              <button className="w-full sm:w-auto px-8 py-4 bg-linear-to-r from-green-700 to-green-600 text-white font-semibold rounded-lg shadow-lg shadow-green-900/50 hover:shadow-xl hover:shadow-green-800/60 transition-all duration-200">
+              <button className="w-full cursor-pointer sm:w-auto px-8 py-4 bg-linear-to-r from-green-700 to-green-600 text-white font-semibold rounded-lg shadow-lg shadow-green-900/50 hover:shadow-xl hover:shadow-green-800/60 transition-all duration-200">
                 Ver Mis Tareas
               </button>
             </Link>
-            <Link href="/tasks/new">
-              <button className="w-full sm:w-auto px-8 py-4 bg-black/40 border-2 border-green-800/50 text-green-400 font-semibold rounded-lg hover:bg-black/60 hover:border-green-600 transition-all duration-200">
+            <Link href="/new">
+              <button className="w-full cursor-pointer sm:w-auto px-8 py-4 bg-black/40 border-2 border-green-800/50 text-green-400 font-semibold rounded-lg hover:bg-black/60 hover:border-green-600 transition-all duration-200">
                 Crear Nueva Tarea
               </button>
             </Link>

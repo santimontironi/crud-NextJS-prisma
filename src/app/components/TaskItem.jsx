@@ -13,21 +13,24 @@ const TaskItem = ({ task, onDelete }) => {
         </Link>
         <div className="flex gap-2">
 
-          <button className="p-2 z-100 rounded-lg cursor-pointer bg-black/40 border border-green-800/30 hover:border-green-600 hover:bg-black/60 transition-all duration-200">
-            <svg
-              className="w-4 h-4 text-gray-400 hover:text-green-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-              />
-            </svg>
-          </button>
+          <Link href={`/tasks/form/${task.id}`}>
+            <button className="p-2 z-100 rounded-lg cursor-pointer bg-black/40 border border-green-800/30 hover:border-green-600 hover:bg-black/60 transition-all duration-200">
+              <svg
+                className="w-4 h-4 text-gray-400 hover:text-green-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                />
+              </svg>
+            </button>
+
+          </Link>
 
           <button onClick={() => onDelete(task.id)} className="p-2 z-100 rounded-lg cursor-pointer bg-black/40 border border-red-800/30 hover:border-red-600 hover:bg-red-900/20 transition-all duration-200">
             <svg

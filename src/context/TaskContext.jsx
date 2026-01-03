@@ -1,6 +1,6 @@
 "use client"
 import { createContext, useState, useEffect } from "react"
-import { addTask, getTasks, getTaskById, deleteTaskById } from "@/services/api";
+import { addTask, getTasks, getTaskById, deleteTaskById, updateTaskById } from "@/services/api";
 
 export const TaskContext = createContext();
 
@@ -78,8 +78,25 @@ export const TaskProvider = ({ children }) => {
         }
     }
 
+    async function updateTask(id, updatedTask) {
+        setLoading({ ...loading, patch: true });
+        try {
+            const res = await updateTaskById(id, updatedTask);
+            setTasks((prev) => prev.map((task) => task.id === res.data.task.id ? res.data.task : task));
+            return res.data.task;
+        }
+        catch (error) {
+            throw error;
+        }
+        finally{
+            setTimeout(() =>{
+                setLoading((prev) => ({ ...prev, patch: false }));
+            },2500)
+        }
+    }
+
     return (
-        <TaskContext.Provider value={{ tasks, createTask, loading, taskById, task, deleteTask }}>
+        <TaskContext.Provider value={{ tasks, createTask, loading, taskById, task, deleteTask, updateTask }}>
             {children}
         </TaskContext.Provider>
     )
