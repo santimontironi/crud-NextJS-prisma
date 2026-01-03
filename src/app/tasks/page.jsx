@@ -87,7 +87,7 @@ const TasksPage = () => {
 
                 <div className="mt-10">
                     <button 
-                        onClick={() => router.back()} 
+                        onClick={() => router.push('/')} 
                         className="flex items-center cursor-pointer gap-2 text-gray-400 hover:text-green-400 transition-colors group"
                     >
                         <svg
