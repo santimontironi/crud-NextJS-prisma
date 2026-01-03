@@ -16,10 +16,10 @@ export const UserProvider = ({ children }) => {
         setLoading(prev => ({...prev, login: true}))
         try{
             const res = await loginUser(credentials);
-            setUser(res.user);
+            setUser(res.data.user);
         }
         catch(error){
-            console.log("Error al iniciar sesión:", error);
+            throw error;
         }
         finally{
             setTimeout(() => {
@@ -31,8 +31,7 @@ export const UserProvider = ({ children }) => {
     async function register(data){
         setLoading(prev => ({...prev, register: true}))
         try{
-            const res = await registerUser(data);
-            setUser(res);
+            await registerUser(data);
         }
         catch(error){
             console.log("Error al registrar el usuario:", error);

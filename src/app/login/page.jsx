@@ -1,5 +1,5 @@
 "use client"
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import { UserContext } from "@/context/UserContext";
 import { useForm } from "react-hook-form"
 import Link from "next/link";
@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
 
-  const { login, loading } = useContext(UserContext);
+  const { login, loading, user } = useContext(UserContext);
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
@@ -20,7 +20,6 @@ const LoginPage = () => {
     try {
       setErrorLogin(null);
       await login(data);
-      router.push('/tasks');
     }
     catch (error) {
       if (error.response?.data?.message) {
@@ -29,6 +28,12 @@ const LoginPage = () => {
       }
     }
   }
+
+  useEffect(() => {
+    if (user) {
+      router.push('/tasks');
+    }
+  },[user, router])
 
   return (
     <section className="min-h-screen bg-linear-to-br from-black via-stone-900 to-black flex items-center justify-center p-6">

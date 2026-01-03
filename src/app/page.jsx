@@ -3,7 +3,7 @@ import Link from "next/link";
 const Home = () => {
   return (
     <div className="min-h-screen bg-linear-to-br from-black via-stone-900 to-black">
-      <div className="relative flex items-center justify-center min-h-screen px-6">
+      <div className="relative flex items-center justify-center min-h-screen px-6 py-10 md:py-8 xl:py-0">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-green-900/20 rounded-full blur-3xl"></div>
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-green-800/10 rounded-full blur-3xl"></div>
