@@ -27,3 +27,7 @@ export function middleware(request) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 }
+
+export const config = {
+  matcher: ["/tasks/:path*", "/new/:path*"],
+};
