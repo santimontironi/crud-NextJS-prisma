@@ -24,7 +24,9 @@ export const POST = async (request) => {
             data: { email, password: passwordHash, name, surname },
         })
 
-        return NextResponse.json({user: user}, { status: 201 });
+        const {password: _, ...userWithoutPassword} = user;
+
+        return NextResponse.json({user: userWithoutPassword}, { status: 201 });
     }
     catch(error){
         return NextResponse.json({ message: 'Error al crear el usuario', error: error.message }, { status: 500 });

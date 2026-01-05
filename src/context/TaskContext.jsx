@@ -1,5 +1,5 @@
 "use client"
-import { createContext, useState, useEffect } from "react"
+import { createContext, useState } from "react"
 import { addTask, getTasks, getTaskById, deleteTaskById, updateTaskById } from "@/services/api";
 
 export const TaskContext = createContext();
@@ -32,35 +32,32 @@ export const TaskProvider = ({ children }) => {
         }
     }
 
-    useEffect(() => {
-        async function allTasks() {
-            try {
-                const res = await getTasks()
-                setTasks(res.data.tasks);
-            }
-            catch (error) {
-                console.error("Error al obtener tareas:", error);
-            }
-            finally {
-                setTimeout(() => {
-                    setLoading((prev) => ({ ...prev, get: false }));
-                }, 2500);
-            }
-        }
 
-        allTasks()
-    }, [])
+    async function allTasks() {
+        try {
+            const res = await getTasks()
+            setTasks(res.data.tasks);
+        }
+        catch (error) {
+            console.error("Error al obtener tareas:", error);
+        }
+        finally {
+            setTimeout(() => {
+                setLoading((prev) => ({ ...prev, get: false }));
+            }, 2500);
+        }
+    }
 
     async function taskById(id) {
-        try{
-            const res =  await getTaskById(id);
+        try {
+            const res = await getTaskById(id);
             setTask(res.data.task);
             return res.data.task;
         }
-        catch(error){ 
+        catch (error) {
             console.error("Error al obtener la tarea por ID:", error);
         }
-        finally{
+        finally {
             setTimeout(() => {
                 setLoading((prev) => ({ ...prev, getById: false }));
             }, 2500);
@@ -88,15 +85,15 @@ export const TaskProvider = ({ children }) => {
         catch (error) {
             throw error;
         }
-        finally{
-            setTimeout(() =>{
+        finally {
+            setTimeout(() => {
                 setLoading((prev) => ({ ...prev, patch: false }));
-            },2500)
+            }, 2500)
         }
     }
 
     return (
-        <TaskContext.Provider value={{ tasks, createTask, loading, taskById, task, deleteTask, updateTask }}>
+        <TaskContext.Provider value={{ tasks, createTask, loading, taskById, task, deleteTask, updateTask, allTasks }}>
             {children}
         </TaskContext.Provider>
     )

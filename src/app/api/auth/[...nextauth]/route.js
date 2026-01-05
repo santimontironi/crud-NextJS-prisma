@@ -1,0 +1,59 @@
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { prisma } from "@/libs/prisma";
+import bcrypt from "bcrypt";
+
+export const authOptions = {
+    providers: [
+        CredentialsProvider({
+            name: "credentials",
+            credentials: {
+                email: { label: "Email", type: "email" },
+                password: { label: "Password", type: "password" },
+            },
+
+            async authorize(credentials) {
+                if (!credentials?.email || !credentials?.password) {
+                    throw new Error("Datos incompletos");
+                }
+
+                const user = await prisma.user.findUnique({
+                    where: { email: credentials.email },
+                });
+
+                if (!user || !user.password) {
+                    throw new Error("Credenciales incorrectas");
+                }
+
+                const isValid = await bcrypt.compare(
+                    credentials.password,
+                    user.password
+                );
+
+                if (!isValid) {
+                    throw new Error("Credenciales incorrectas");
+                }
+
+                return {
+                    id: user.id,
+                    email: user.email,
+                    name: user.name,
+                };
+            },
+        }),
+    ],
+
+    session: {
+        strategy: "jwt",
+    },
+
+    pages: {
+        signIn: "/login",
+    },
+
+    secret: process.env.NEXTAUTH_SECRET,
+};
+
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };

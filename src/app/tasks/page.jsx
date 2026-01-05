@@ -1,6 +1,6 @@
 "use client"
 
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { TaskContext } from "@/context/TaskContext";
 import Loader from "../components/Loader";
 import TaskItem from "../components/TaskItem";
@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 
 const TasksPage = () => {
 
-    const { tasks, loading, deleteTask } = useContext(TaskContext);
+    const { tasks, loading, deleteTask, allTasks } = useContext(TaskContext);
 
     const router = useRouter();
 
@@ -26,6 +26,10 @@ const TasksPage = () => {
             },
         });
     };
+
+    useEffect(() => {
+        allTasks();
+    }, []);
 
     return (
         <section className="min-h-screen bg-linear-to-br from-black via-stone-900 to-black py-12 px-6">
