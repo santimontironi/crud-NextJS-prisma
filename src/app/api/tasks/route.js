@@ -56,7 +56,7 @@ export async function POST(request) {
     return NextResponse.json(newTask, { status: 201 })
   } catch (error) {
     return NextResponse.json(
-      { message: "Error al crear la tarea" },
+      { message: "Error al crear la tarea", error: error.message },
       { status: 500 }
     )
   }
