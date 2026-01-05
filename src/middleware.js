@@ -14,7 +14,7 @@ export function middleware(request) {
     pathname.startsWith(path)
   );
 
-  if (!isProtected) return NextResponse.next();
+  if (!isProtected) return NextResponse.next(); //Si la ruta NO es una ruta protegida, se la deja pasar sin hacer nada
 
   if (!token) {
     return NextResponse.redirect(new URL("/login", request.url));

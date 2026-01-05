@@ -1,9 +1,23 @@
 import { NextResponse } from "next/server";
 import {prisma} from "@/libs/prisma";
+import jwt from "jsonwebtoken";
+
+const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
 
 export async function GET() {
   try {
-    const tasks = await prisma.task.findMany({orderBy: { createdAt: 'desc' }});
+
+    const token = request.cookies.get("token")?.value;
+
+    if(!token){
+      return NextResponse.json({ message: "No autorizado" }, { status: 401 });
+    }
+
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const userId = decoded.userId;
+
+    const tasks = await prisma.task.findMany({ where: { userId }, orderBy: { createdAt: 'desc' }});
+    
     return NextResponse.json({ tasks }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
