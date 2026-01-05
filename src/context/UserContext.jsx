@@ -1,35 +1,15 @@
 "use client"
 import { createContext, useState } from "react"
-import { loginUser, registerUser } from "@/services/api";
+import { registerUser } from "@/services/api";
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
 
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState({
-        login: false,
-        register: false
-    });
-
-    async function login(credentials){
-        setLoading(prev => ({...prev, login: true}))
-        try{
-            const res = await loginUser(credentials);
-            setUser(res.data.user);
-        }
-        catch(error){
-            throw error;
-        }
-        finally{
-            setTimeout(() => {
-                setLoading(prev => ({...prev, login: false}))
-            },2500)
-        }
-    }
+    const [loading, setLoading] = useState(false)
 
     async function register(data){
-        setLoading(prev => ({...prev, register: true}))
+        setLoading(true)
         try{
             await registerUser(data);
         }
@@ -38,13 +18,13 @@ export const UserProvider = ({ children }) => {
         }
         finally{
             setTimeout(() => {
-                setLoading(prev => ({...prev, register: false}))
+                setLoading(false)
             },2500)
         }
     }
 
 
-    return <UserContext.Provider value={{user, loading, login, register}}>
+    return <UserContext.Provider value={{loading,register}}>
         {children}
     </UserContext.Provider>
 }

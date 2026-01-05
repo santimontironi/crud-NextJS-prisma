@@ -1,70 +1,93 @@
-import { NextResponse } from "next/server";
-import { prisma } from "@/libs/prisma";
-import { getUserFromToken } from "@/libs/auth";
+import { NextResponse } from "next/server"
+import { prisma } from "@/libs/prisma"
+import { getServerSession } from "next-auth"
+import { authOptions } from "../auth/[...nextauth]/route"
 
 export async function GET(request, { params }) {
     try {
+        const session = await getServerSession(authOptions)
 
-        const user = getUserFromToken(request);
-
-        if (!user) {
-            return NextResponse.json({ message: "No autorizado" }, { status: 401 });
+        if (!session) {
+            return NextResponse.json(
+                { message: "No autorizado" },
+                { status: 401 }
+            )
         }
 
-        const { id } = await params;
+        const { id } = params
 
-        const task = await prisma.task.findUnique({
-            where: { id: Number(id), userId: user.userId },
-        });
+        const task = await prisma.task.findFirst({
+            where: {
+                id: Number(id),
+                userId: session.user.id,
+            },
+        })
 
-        return NextResponse.json({ task: task }, { status: 200 });
-    }
-    catch (error) {
-        return NextResponse.json({ message: 'Error al obtener la tarea', error: error.message }, { status: 500 });
+        return NextResponse.json({ task }, { status: 200 })
+    } catch (error) {
+        return NextResponse.json(
+            { message: "Error al obtener la tarea" },
+            { status: 500 }
+        )
     }
 }
 
 export async function DELETE(request, { params }) {
     try {
-        const { id } = await params;
+        const session = await getServerSession(authOptions)
 
-        const user = getUserFromToken(request);
-
-        if (!user) {
-            return NextResponse.json({ message: "No autorizado" }, { status: 401 });
+        if (!session) {
+            return NextResponse.json(
+                { message: "No autorizado" },
+                { status: 401 }
+            )
         }
 
-        const task = await prisma.task.delete({
-            where: { id: Number(id), userId: user.userId },
+        const { id } = params
+
+        const task = await prisma.task.deleteMany({
+            where: {
+                id: Number(id),
+                userId: session.user.id,
+            },
         })
 
-        return NextResponse.json({ task }, { status: 200 });
-    }
-    catch (error) {
-        return NextResponse.json({ message: 'Error al eliminar la tarea', error: error.message }, { status: 500 });
+        return NextResponse.json({ task }, { status: 200 })
+    } catch (error) {
+        return NextResponse.json(
+            { message: "Error al eliminar la tarea" },
+            { status: 500 }
+        )
     }
 }
 
 export async function PATCH(request, { params }) {
     try {
-        const { id } = await params;
+        const session = await getServerSession(authOptions)
 
-        const user = getUserFromToken(request);
-
-        if (!user) {
-            return NextResponse.json({ message: "No autorizado" }, { status: 401 });
+        if (!session) {
+            return NextResponse.json(
+                { message: "No autorizado" },
+                { status: 401 }
+            )
         }
 
-        const data = await request.json();
+        const { id } = params
+        const data = await request.json()
 
-        const task = await prisma.task.update({
-            where: { id: Number(id), userId: user.userId },
-            data: data,
+        const task = await prisma.task.updateMany({
+            where: {
+                id: Number(id),
+                userId: session.user.id,
+            },
+            data,
         })
 
         return NextResponse.json({ task }, { status: 200 })
-    }
-    catch (error) {
-        return NextResponse.json({ message: 'Error al editar la tarea', error: error.message }, { status: 500 });
+    } catch (error) {
+        return NextResponse.json(
+            { message: "Error al editar la tarea" },
+            { status: 500 }
+        )
     }
 }

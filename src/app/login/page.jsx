@@ -1,43 +1,43 @@
 "use client"
-import { useContext, useState, useEffect } from "react"
-import { UserContext } from "@/context/UserContext";
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import Link from "next/link";
 import Loader from "../components/Loader";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const LoginPage = () => {
 
-  const { login, loading, user } = useContext(UserContext);
-
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
+  const [loadingLogin, setLoadingLogin] = useState(false);
   const [errorLogin, setErrorLogin] = useState(null);
 
   const router = useRouter();
 
   async function formSubmit(data) {
-    try {
-      setErrorLogin(null);
-      await login(data);
-    }
-    catch (error) {
-      if (error.response?.data?.message) {
-        setErrorLogin(error.response.data.message);
-        reset()
-      }
-    }
-  }
+    setLoadingLogin(true);
+    setErrorLogin(null);
 
-  useEffect(() => {
-    if (user) {
-      router.push('/tasks');
+    const res = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
+
+    if (res.error) {
+      setErrorLogin("Credenciales incorrectas.")
+      setLoadingLogin(false);
     }
-  },[user, router])
+
+    router.push('/tasks');
+
+    reset();
+  }
 
   return (
     <section className="min-h-screen bg-linear-to-br from-black via-stone-900 to-black flex items-center justify-center p-6">
-      {loading.login ? (
+      {loadingLogin ? (
         <Loader />
       ) : (
         <div className="w-full max-w-md">
@@ -112,15 +112,15 @@ const LoginPage = () => {
                       },
                     })}
                     className={`
-                    w-full px-4 py-3 bg-black/40 border-2 rounded-lg
-                    text-gray-100 placeholder-gray-500
-                    transition-colors duration-200
-                    focus:outline-none focus:bg-black/60
-                    ${errors.email
+                        w-full px-4 py-3 bg-black/40 border-2 rounded-lg
+                        text-gray-100 placeholder-gray-500
+                        transition-colors duration-200
+                        focus:outline-none focus:bg-black/60
+                        ${errors.email
                         ? 'border-red-600/70 focus:border-red-500'
                         : 'border-green-800/50 focus:border-green-600'
                       }
-                  `}
+                      `}
                     placeholder="usuario@ejemplo.com"
                   />
                   {errors.email && (
@@ -157,15 +157,15 @@ const LoginPage = () => {
                       required: 'La contraseña es obligatoria'
                     })}
                     className={`
-                    w-full px-4 py-3 bg-black/40 border-2 rounded-lg
-                    text-gray-100 placeholder-gray-500
-                    transition-colors duration-200
-                    focus:outline-none focus:bg-black/60
-                    ${errors.password
+                        w-full px-4 py-3 bg-black/40 border-2 rounded-lg
+                        text-gray-100 placeholder-gray-500
+                        transition-colors duration-200
+                        focus:outline-none focus:bg-black/60
+                        ${errors.password
                         ? 'border-red-600/70 focus:border-red-500'
                         : 'border-green-800/50 focus:border-green-600'
                       }
-                  `}
+                      `}
                     placeholder="••••••••"
                   />
                   {errors.password && (
@@ -191,15 +191,15 @@ const LoginPage = () => {
                 <button
                   type="submit"
                   className="
-                  w-full px-6 py-3 bg-linear-to-r from-green-700 to-green-600
-                  text-white font-semibold rounded-lg
-                  shadow-lg shadow-green-900/50
-                  transition-all duration-200
-                  hover:shadow-xl hover:shadow-green-800/60
-                  focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-black
-                  disabled:opacity-50 disabled:cursor-not-allowed
-                  flex items-center justify-center gap-2
-                "
+                      w-full px-6 py-3 bg-linear-to-r from-green-700 to-green-600
+                      text-white font-semibold rounded-lg
+                      shadow-lg shadow-green-900/50
+                      transition-all duration-200
+                      hover:shadow-xl hover:shadow-green-800/60
+                      focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-black
+                      disabled:opacity-50 disabled:cursor-not-allowed
+                      flex items-center justify-center gap-2
+                    "
                 >
                   Iniciar Sesión
                 </button>
@@ -219,12 +219,12 @@ const LoginPage = () => {
                   <button
                     type="button"
                     className="
-                    w-full px-6 py-3 bg-black/40 border-2 border-green-800/50
-                    text-green-400 font-semibold rounded-lg
-                    hover:bg-black/60 hover:border-green-600
-                    transition-all duration-200
-                    focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-black
-                  "
+                        w-full px-6 py-3 bg-black/40 border-2 border-green-800/50
+                        text-green-400 font-semibold rounded-lg
+                        hover:bg-black/60 hover:border-green-600
+                        transition-all duration-200
+                        focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-black
+                      "
                   >
                     Crear una cuenta
                   </button>
@@ -245,5 +245,6 @@ const LoginPage = () => {
     </section>
   )
 }
+
 
 export default LoginPage
