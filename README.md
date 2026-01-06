@@ -1,36 +1,162 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📝 CRUD de Tareas con Autenticación
 
-## Getting Started
+Una aplicación web completa de **gestión de tareas con autenticación**, desarrollada con **Next.js (App Router)**, **Prisma ORM**, **NextAuth.js** y **TailwindCSS**.
+El proyecto está pensado como una implementación **realista y escalable**, aplicando buenas prácticas del ecosistema moderno de Next.js.
 
-First, run the development server:
+---
+
+## 🎯 Objetivo del Proyecto
+
+El objetivo principal de esta aplicación no fue solo crear un CRUD, sino **aprender y consolidar conceptos clave** del desarrollo Full Stack moderno con Next.js:
+
+* Autenticación robusta y segura
+* Manejo de sesiones, cookies y JWT
+* Separación correcta entre Server Components y Client Components
+* Arquitectura clara y mantenible
+* Uso profesional de Prisma como ORM
+
+---
+
+## ✨ Características Principales
+
+### 🔐 Autenticación y Seguridad
+
+* Registro de usuarios con validaciones
+* Login con credenciales (email y contraseña)
+* Contraseñas hasheadas con **bcrypt**
+* Autenticación con **NextAuth.js**
+* Uso de **JWT** para manejo de sesión
+* Cookies **HTTP-only** para mayor seguridad
+* Protección de rutas privadas mediante **middleware**
+* Cierre de sesión (logout) con limpieza completa de sesión
+
+---
+
+### 📋 Gestión de Tareas (CRUD)
+
+Cada usuario gestiona **únicamente sus propias tareas**:
+
+* ➕ Crear nuevas tareas
+* 📄 Listar tareas asociadas al usuario autenticado
+* ✏️ Editar tareas existentes
+* 🗑️ Eliminar tareas
+* ⚡ Actualizaciones en tiempo real de la UI
+
+---
+
+### 🎨 Interfaz de Usuario
+
+* Diseño moderno con **TailwindCSS**
+* Enfoque **mobile-first** y totalmente responsivo
+* Feedback visual mediante **Sonner (toasts)**
+* Estados de carga (loading) con **React Spinners**
+* Formularios controlados con **React Hook Form**
+* Animaciones y transiciones suaves para mejor UX
+
+---
+
+## 🧱 Arquitectura del Proyecto
+
+* **App Router (Next.js 15)**
+* Server Components para lógica de datos
+* Client Components solo cuando es necesario (formularios, interacciones)
+* API Routes para endpoints REST
+* Prisma como capa de acceso a datos
+* Separación clara entre:
+
+  * UI
+  * Lógica de negocio
+  * Persistencia de datos
+
+---
+
+## 🛠️ Tecnologías Utilizadas
+
+### 🖥️ Frontend
+
+* **Next.js 15** – Framework React con SSR y SSG
+* **React 19.2** – Biblioteca de UI
+* **TailwindCSS 4.0** – Framework CSS utility-first
+* **React Hook Form** – Manejo de formularios
+* **Sonner** – Sistema de notificaciones
+* **React Spinners** – Indicadores de carga
+
+---
+
+### ⚙️ Backend
+
+* **Next.js API Routes** – Endpoints RESTful
+* **Prisma 7.2** – ORM para Node.js
+* **PostgreSQL** – Base de datos relacional
+* **NextAuth.js** – Autenticación y manejo de sesiones
+* **bcrypt** – Hash de contraseñas
+* **jwt** – Manejo de JWT
+
+---
+
+### 🧰 Herramientas y Servicios
+
+* **ESLint** – Linter de código
+* **Supabase** – Hosting de base de datos PostgreSQL
+* **Vercel** – Deployment y hosting
+
+---
+
+## 🚀 Instalación y Uso
 
 ```bash
+# Clonar el repositorio
+git clone https://github.com/tu-usuario/tu-repo.git
+
+# Instalar dependencias
+npm install
+
+# Configurar variables de entorno
+cp .env.example .env
+
+# Ejecutar migraciones de Prisma
+npx prisma migrate dev
+
+# Iniciar entorno de desarrollo
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🔐 Variables de Entorno
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+DATABASE_URL="postgresql://..."
+NEXTAUTH_SECRET="tu_secret"
+NEXTAUTH_URL="http://localhost:3000"
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📚 Aprendizajes Clave
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* Uso correcto de **NextAuth callbacks**
+* Diferencias reales entre Server y Client Components
+* Seguridad en autenticación web
+* Modelado de datos con Prisma
+* Buenas prácticas en proyectos Next.js reales
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📌 Estado del Proyecto
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+✅ Funcional y completo
+🚧 Abierto a mejoras futuras (roles, tags, prioridades, etc.)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 👨‍💻 Autor
+
+Desarrollado por **Santiago Montironi**
+💼 Full Stack Developer
+
+---
+
+## ⭐ Feedback
+
+Si te gustó el proyecto o te sirvió como referencia, ¡no olvides dejar una estrella ⭐ en el repositorio!
