@@ -1,9 +1,10 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import Link from "next/link";
 import Loader from "../components/Loader";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { signIn } from "next-auth/react";
 
 const LoginPage = () => {
@@ -12,6 +13,8 @@ const LoginPage = () => {
 
   const [loadingLogin, setLoadingLogin] = useState(false);
   const [errorLogin, setErrorLogin] = useState(null);
+
+  const { data: session, status } = useSession();
 
   const router = useRouter();
 
@@ -34,6 +37,12 @@ const LoginPage = () => {
 
     reset();
   }
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push('/tasks');
+    }
+  },[status]);
 
   return (
     <section className="min-h-screen bg-linear-to-br from-black via-stone-900 to-black flex items-center justify-center p-6">
