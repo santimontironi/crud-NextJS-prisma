@@ -12,7 +12,7 @@ export const authOptions = {
                 password: { label: "Password", type: "password" },
             },
 
-            async authorize(credentials) {
+            async authorize(credentials) { // authorize hace el login de por sí, funcionamiento normal.
                 if (!credentials?.email || !credentials?.password) {
                     throw new Error("Datos incompletos");
                 }
@@ -44,13 +44,13 @@ export const authOptions = {
     ],
 
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user }) { //agrega el id del usuario en el token ya creado
             if (user) {
                 token.id = user.id;
             }
             return token;
         },
-        async session({ session, token }) {
+        async session({ session, token }) { // agrega el id del usuario en la session ya creada para usar en la app
             if (session.user) {
                 session.user.id = token.id;
             }

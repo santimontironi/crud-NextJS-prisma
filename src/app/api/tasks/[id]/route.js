@@ -14,7 +14,7 @@ export async function GET(request, { params }) {
             )
         }
 
-        const { id } = params
+        const { id } = await params
 
         const task = await prisma.task.findFirst({
             where: {
@@ -26,7 +26,7 @@ export async function GET(request, { params }) {
         return NextResponse.json({ task }, { status: 200 })
     } catch (error) {
         return NextResponse.json(
-            { message: "Error al obtener la tarea" },
+            { message: "Error al obtener la tarea", error: error.message },
             { status: 500 }
         )
     }

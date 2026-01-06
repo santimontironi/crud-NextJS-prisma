@@ -31,8 +31,7 @@ const RegisterPage = () => {
 
   return (
     <section className="min-h-screen bg-linear-to-br from-black via-stone-900 to-black flex items-center justify-center p-6">
-      {loading.register ? <Loader /> : (
-
+      {loading ? <Loader /> : (
         <div className="w-full max-w-md">
           <div className="bg-stone-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-green-800/30 overflow-hidden">
             <div className="bg-linear-to-r from-green-900/40 to-green-800/20 border-b border-green-800/30 p-8 text-center">
@@ -86,33 +85,9 @@ const RegisterPage = () => {
                 )}
 
                 <div>
-                  <label htmlFor="name"
-                    className="block text-sm font-medium text-gray-300 mb-2"
-                  >
-                    Nombre
-                  </label>
-                  <input
-                    id="name"
-                    type="text"
-                    {...register('name', {
-                      required: 'El nombre es obligatorio',
-                      minLength: {
-                        value: 2,
-                        message: 'El nombre debe tener al menos 2 caracteres',
-                      },
-                    })}
-                    className={`
-                    w-full px-4 py-3 bg-black/40 border-2 rounded-lg
-                    text-gray-100 placeholder-gray-500
-                    transition-colors duration-200
-                    focus:outline-none focus:bg-black/60
-                    ${errors.name
-                        ? 'border-red-600/70 focus:border-red-500'
-                        : 'border-green-800/50 focus:border-green-600'
-                      }
-                  `}
-                    placeholder="Juan"
-                  />
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">Nombre</label>
+                  <input id="name" type="text" {...register('name', { required: 'El nombre es obligatorio', minLength: { value: 2, message: 'El nombre debe tener al menos 2 caracteres' } })} className={`w-full px-4 py-3 bg-black/40 border-2 rounded-lg text-gray-100 placeholder-gray-500 transition-colors duration-200 focus:outline-none focus:bg-black/60 ${errors.name ? 'border-red-600/70 focus:border-red-500' : 'border-green-800/50 focus:border-green-600'}`}
+                    placeholder="Juan" />
                   {errors.name && (
                     <p className="mt-2 text-sm text-red-400 flex items-center gap-1.5">
                       <svg
@@ -134,34 +109,9 @@ const RegisterPage = () => {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="surname"
-                    className="block text-sm font-medium text-gray-300 mb-2"
-                  >
-                    Apellido
-                  </label>
-                  <input
-                    id="surname"
-                    type="text"
-                    {...register('surname', {
-                      required: 'El apellido es obligatorio',
-                      minLength: {
-                        value: 2,
-                        message: 'El apellido debe tener al menos 2 caracteres',
-                      },
-                    })}
-                    className={`
-                    w-full px-4 py-3 bg-black/40 border-2 rounded-lg
-                    text-gray-100 placeholder-gray-500
-                    transition-colors duration-200
-                    focus:outline-none focus:bg-black/60
-                    ${errors.surname
-                        ? 'border-red-600/70 focus:border-red-500'
-                        : 'border-green-800/50 focus:border-green-600'
-                      }
-                  `}
-                    placeholder="Pérez"
-                  />
+                  <label htmlFor="surname" className="block text-sm font-medium text-gray-300 mb-2">Apellido</label>
+                  <input id="surname" type="text" {...register('surname', { required: 'El apellido es obligatorio', minLength: { value: 2, message: 'El apellido debe tener al menos 2 caracteres' } })} className={`w-full px-4 py-3 bg-black/40 border-2 rounded-lg text-gray-100 placeholder-gray-500 transition-colors duration-200 focus:outline-none focus:bg-black/60 ${errors.surname ? 'border-red-600/70 focus:border-red-500' : 'border-green-800/50 focus:border-green-600'}`}
+                    placeholder="Pérez" />
                   {errors.surname && (
                     <p className="mt-2 text-sm text-red-400 flex items-center gap-1.5">
                       <svg
@@ -183,34 +133,9 @@ const RegisterPage = () => {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-300 mb-2"
-                  >
-                    Correo Electrónico
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    {...register('email', {
-                      required: 'El correo es obligatorio',
-                      pattern: {
-                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                        message: 'Correo electrónico inválido',
-                      },
-                    })}
-                    className={`
-                    w-full px-4 py-3 bg-black/40 border-2 rounded-lg
-                    text-gray-100 placeholder-gray-500
-                    transition-colors duration-200
-                    focus:outline-none focus:bg-black/60
-                    ${errors.email
-                        ? 'border-red-600/70 focus:border-red-500'
-                        : 'border-green-800/50 focus:border-green-600'
-                      }
-                  `}
-                    placeholder="usuario@ejemplo.com"
-                  />
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">Correo Electrónico</label>
+                  <input id="email" type="email" {...register('email', { required: 'El correo es obligatorio', pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: 'Correo electrónico inválido' } })} className={`w-full px-4 py-3 bg-black/40 border-2 rounded-lg text-gray-100 placeholder-gray-500 transition-colors duration-200 focus:outline-none focus:bg-black/60 ${errors.email ? 'border-red-600/70 focus:border-red-500' : 'border-green-800/50 focus:border-green-600'}`}
+                    placeholder="usuario@ejemplo.com" />
                   {errors.email && (
                     <p className="mt-2 text-sm text-red-400 flex items-center gap-1.5">
                       <svg
@@ -232,34 +157,9 @@ const RegisterPage = () => {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium text-gray-300 mb-2"
-                  >
-                    Contraseña
-                  </label>
-                  <input
-                    id="password"
-                    type="password"
-                    {...register('password', {
-                      required: 'La contraseña es obligatoria',
-                      minLength: {
-                        value: 6,
-                        message: 'La contraseña debe tener al menos 6 caracteres',
-                      },
-                    })}
-                    className={`
-                    w-full px-4 py-3 bg-black/40 border-2 rounded-lg
-                    text-gray-100 placeholder-gray-500
-                    transition-colors duration-200
-                    focus:outline-none focus:bg-black/60
-                    ${errors.password
-                        ? 'border-red-600/70 focus:border-red-500'
-                        : 'border-green-800/50 focus:border-green-600'
-                      }
-                  `}
-                    placeholder="••••••••"
-                  />
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">Contraseña</label>
+                  <input id="password" type="password" {...register('password', { required: 'La contraseña es obligatoria', minLength: { value: 6, message: 'La contraseña debe tener al menos 6 caracteres' } })} className={`w-full px-4 py-3 bg-black/40 border-2 rounded-lg text-gray-100 placeholder-gray-500 transition-colors duration-200 focus:outline-none focus:bg-black/60 ${errors.password ? 'border-red-600/70 focus:border-red-500' : 'border-green-800/50 focus:border-green-600'}`}
+                    placeholder="••••••••" />
                   {errors.password && (
                     <p className="mt-2 text-sm text-red-400 flex items-center gap-1.5">
                       <svg
@@ -280,20 +180,7 @@ const RegisterPage = () => {
                   )}
                 </div>
 
-                <button
-                  type="submit"
-                  className="
-                  w-full px-6 py-3 bg-linear-to-r from-green-700 to-green-600
-                  text-white font-semibold rounded-lg
-                  shadow-lg shadow-green-900/50
-                  transition-all duration-200
-                  hover:shadow-xl hover:shadow-green-800/60
-                  focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-black
-                  disabled:opacity-50 disabled:cursor-not-allowed
-                  flex items-center justify-center gap-2
-                  cursor-pointer
-                "
-                >
+                <button type="submit" className="w-full px-6 py-3 bg-linear-to-r from-green-700 to-green-600 text-white font-semibold rounded-lg shadow-lg shadow-green-900/50 transition-all duration-200 hover:shadow-xl hover:shadow-green-800/60 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer">
                   Crear cuenta
                 </button>
 
@@ -309,17 +196,7 @@ const RegisterPage = () => {
                 </div>
 
                 <Link href="/login">
-                  <button
-                    type="button"
-                    className="
-                    w-full px-6 py-3 bg-black/40 border-2 border-green-800/50
-                    cursor-pointer
-                    text-green-400 font-semibold rounded-lg
-                    hover:bg-black/60 hover:border-green-600
-                    transition-all duration-200
-                    focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-black
-                  "
-                  >
+                  <button type="button" className="w-full px-6 py-3 bg-black/40 border-2 border-green-800/50 cursor-pointer text-green-400 font-semibold rounded-lg hover:bg-black/60 hover:border-green-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-black">
                     Iniciar Sesión
                   </button>
                 </Link>

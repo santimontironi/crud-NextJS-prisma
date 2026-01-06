@@ -8,6 +8,7 @@ import { Toaster } from "sonner";
 import { toast } from "sonner";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react"
 
 const TasksPage = () => {
 
@@ -35,13 +36,37 @@ const TasksPage = () => {
         <section className="min-h-screen bg-linear-to-br from-black via-stone-900 to-black py-12 px-6">
             <div className="max-w-6xl mx-auto">
 
-                <div className="mb-10">
-                    <h1 className="text-4xl font-bold text-green-400 mb-2">
-                        Mis Tareas
-                    </h1>
-                    <p className="text-gray-400">
-                        Administra y organiza tus tareas pendientes
-                    </p>
+                <div className="mb-10 flex justify-between items-center">
+                    <div>
+                        <h1 className="text-4xl font-bold text-green-400 mb-2">
+                            Mis Tareas
+                        </h1>
+                        <p className="text-gray-400">
+                            Administra y organiza tus tareas pendientes
+                        </p>
+                    </div>
+
+                    <div>
+                        <button
+                            onClick={() => signOut({ callbackUrl: "/login" })}
+                            className="flex items-center gap-2 px-5 py-2.5 bg-red-900/20 hover:bg-red-900/40 border border-red-700/30 hover:border-red-600/50 text-red-400 hover:text-red-300 font-medium rounded-lg transition-all duration-200 cursor-pointer group"
+                        >
+                            <svg
+                                className="w-5 h-5 transition-transform group-hover:translate-x-1"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                                />
+                            </svg>
+                            <span>Cerrar sesión</span>
+                        </button>
+                    </div>
                 </div>
 
                 {loading.get ? (
@@ -84,14 +109,38 @@ const TasksPage = () => {
                                 {tasks.map((task) => (
                                     <TaskItem key={task.id} task={task} onDelete={handleDelete} />
                                 ))}
+
+                                <div className="flex items-center justify-center">
+                                    <button
+                                        onClick={() => router.push('/new')}
+                                        className="w-full h-48 flex flex-col items-center justify-center gap-4 bg-stone-900/50 hover:bg-stone-900/80 border-2 border-dashed border-green-700/30 hover:border-green-600/60 rounded-2xl transition-all duration-300 cursor-pointer group"
+                                    >
+                                        <svg
+                                            className="w-12 h-12 text-green-600 group-hover:text-green-400 transition-colors"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                                            />
+                                        </svg>
+                                        <span className="font-semibold text-lg text-green-600 group-hover:text-green-400 transition-colors">
+                                            Crear Nueva Tarea
+                                        </span>
+                                    </button>
+                                </div>
                             </div>
                         )}
                     </div>
                 )}
 
                 <div className="mt-10">
-                    <button 
-                        onClick={() => router.push('/')} 
+                    <button
+                        onClick={() => router.push('/')}
                         className="flex items-center cursor-pointer gap-2 text-gray-400 hover:text-green-400 transition-colors group"
                     >
                         <svg
@@ -110,7 +159,7 @@ const TasksPage = () => {
                         <span className="font-medium">Volver</span>
                     </button>
                 </div>
-    
+
             </div>
 
             <Toaster richColors position="top-center" />
